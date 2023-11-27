@@ -25,7 +25,8 @@
         <field name="arch" type="xml">
             <form string="Content Plan">
                 <header>
-                    <button string="Send to Approval" type="object" name="action_send_approval" class="oe_highlight" />
+                    <button string="Send to Approval" type="object" name="action_send_approval" class="oe_highlight" attrs="{'invisible': [('status', '!=', 'draft')]}"/>
+                    <button string="Reset to Draft" type="object" name="action_reset_to_draft" class="oe_secondary" />
                     <field name="status" widget="statusbar" statusbar_visible="draft,pending_approval,modification,approved,canceled"/>
                 </header>
 

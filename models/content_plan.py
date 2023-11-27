@@ -24,17 +24,21 @@ class ContentPlan(models.Model):
         help="Set to True to prevent modifications when the plan is pending approval."
     )
 
-    def name_get(self):
-        result = []
-        for record in self:
-            name = record.plan_title or 'Unnamed Content Plan'
-            result.append((record.id, name))
-        return result
+    # def name_get(self):
+    #     result = []
+    #     for record in self:
+    #         name = record.plan_title or 'Unnamed Content Plan'
+    #         result.append((record.id, name))
+    #     return result
 
     def action_send_approval(self):
         for plan in self:
-            # Change status to 'Pending Approval'
             plan.status = 'pending_approval'
-            # Prevent modifications by setting a flag
             plan.prevent_modification = True
+        return True
+
+    def action_reset_to_draft(self):
+        for plan in self:
+            plan.status = 'draft'
+            plan.prevent_modification = False
         return True
