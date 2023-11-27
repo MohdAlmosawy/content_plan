@@ -27,6 +27,9 @@
                         <field name="content_title"></field>
                      </group>
                      <group>
+                        <field name="content_plan_contents_type_id"></field>
+                     </group>
+                     <group>
                         <field name="content"></field>
                      </group>
                      <group>

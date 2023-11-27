@@ -29,7 +29,6 @@
                 </header>
 
                 <sheet>
-                    <group>
                         <!-- Title and Description -->
                         <div class="o_form_sheet">
                             <div class="o_group">
@@ -63,14 +62,11 @@
                                 </div>
                             </div>
                         </div>
-                    </group>
-                    <group>
                         <notebook>
                             <page name="Contents" string="Contents">
                                 <field name="contents_ids" widget="content_plan_contents_view_tree"></field>
                             </page>
                         </notebook>
-                    </group>
                 </sheet>
             </form>
         </field>
