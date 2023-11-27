@@ -1,3 +1,5 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 
 "access_ir_model_content_plan","ir_content_plan","model_content_plan","base.group_user",1,1,1,1
+"access_ir_model_content_plan_contents","ir_content_plan_contents","model_content_plan_contents","base.group_user",1,1,1,1
+"access_ir_model_content_plan_contents_type","ir_content_plan_contents_type","model_content_plan_contents_type","base.group_user",1,1,1,1
