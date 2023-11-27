@@ -14,7 +14,7 @@
                 <field name="plan_title" />
                 <field name="description"/>
                 <field name="partner_id" string="Client"/>
-                <field name="status" string="Status" attrs="{'readonly':True}"></field>
+                <field name="status" string="Status"></field>
             </tree>
         </field>
     </record>
