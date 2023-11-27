@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="content_plan_menu_root" name="Content Plan">
+        <menuitem id="content_plan_menu" name="Plans">
+            <menuitem id="content_plan_menu_action" action="content_plan_action"></menuitem>
+        </menuitem>
+    </menuitem>
+</odoo>
