@@ -13,3 +13,5 @@ class ContentPlan(models.Model):
         selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('approved','Approved'),('canceled','Canceled')],
         default = 'draft'
     )
+    start_date = fields.Date(string="Start Date")
+    end_date = fields.Date(string="End Date")

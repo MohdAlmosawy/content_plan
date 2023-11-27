@@ -49,6 +49,16 @@
                                     <p><field name="partner_id" string="Client"/></p>
                                 </div>
                             </div>
+                            <div class="o_row align-items-center">
+                                <label for="start_date" class="o_form_label col-md-3">Start Date</label>
+                                <div class="col-md-3">
+                                    <field name="start_date"/>
+                                </div>
+                                <label for="end_date" class="o_form_label col-md-3">End Date</label>
+                                <div class="col-md-3">
+                                    <field name="end_date"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </sheet>
