@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="content_plan_contents_view_tree" model="ir.ui.view">
+        <field name="name">content.plan.contents.view.tree</field>
+        <field name="model">content.plan.contents</field>
+        <field name="arch" type="xml">
+            <tree string="Plan Contents">
+                <field name="date"></field>
+                <field name="content_title"></field>
+                <field name="content_plan_contents_type_id"></field>
+                <field name="content"></field>
+                <field name="notes"></field>
+            </tree>
+        </field>
+    </record>
+
+    <record id="content_plan_contents_view_form" model="ir.ui.view">
+        <field name="name">content.plan.contents.view.form</field>
+        <field name="model">content.plan.contents</field>
+        <field name="arch" type="xml">
+            <form string="Plan Contents">
+                <sheet>
+                     <group>
+                        <field name="date"></field>
+                     </group>
+                     <group>
+                        <field name="content_title"></field>
+                     </group>
+                     <group>
+                        <field name="content"></field>
+                     </group>
+                     <group>
+                        <field name="notes"></field>
+                     </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

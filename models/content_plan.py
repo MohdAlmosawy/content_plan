@@ -15,3 +15,5 @@ class ContentPlan(models.Model):
     )
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
+
+    contents_ids = fields.One2many('content.plan.contents','content_plan_id',string="Contents")
