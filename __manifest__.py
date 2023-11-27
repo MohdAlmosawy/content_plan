@@ -10,6 +10,8 @@
     'depends': ['base'],  # Add dependencies if needed
     'data': [
         './security/ir.model.access.csv',
+        './report/content_plan_templates.xml',
+        './report/content_plan_reports.xml',
         'views/content_plan_contents_view.xml',
         'views/content_plan_views.xml',
         'views/content_plan_contents_type_views.xml',
