@@ -7,6 +7,7 @@
     'summary': 'Custom module for managing social media plans',
     'description': 'Module to create and manage social media plans for clients.',
     'author': 'TecPill - Sayed Mohd Ebrahim',
+    'license': 'OPL-1',
     'depends': ['base'],  # Add dependencies if needed
     'data': [
         './security/ir.model.access.csv',

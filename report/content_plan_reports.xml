@@ -12,14 +12,14 @@
         <field name="margin_bottom">5</field>
         <field name="margin_left">5</field>
         <field name="margin_right">5</field>
-        <field name="header_line" eval="False"/>
+        <field name="header_line" eval="True"/>
         <field name="header_spacing">0</field>
         <field name="dpi">80</field>
     </record>
 
 
     <record id="report_content_plan" model="ir.actions.report">
-        <field name="name">Content Plan Report</field>
+        <field name="name">Full Content Plan</field>
         <field name="model">content.plan</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">content_plan.report_content_plan_template</field>
