@@ -10,6 +10,6 @@ class ContentPlan(models.Model):
     partner_id = fields.Many2one('res.partner',string="Client",index= True,tracking=True,copy = False)
     status = fields.Selection(
         string="Status",
-        selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('Approved','Approved'),('canceled','Canceled')],
+        selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('approved','Approved'),('canceled','Canceled')],
         default = 'draft'
     )

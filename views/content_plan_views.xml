@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="content_plan_action" model="ir.actions.act_window">
-        <field name="name">Properties</field>
+        <field name="name">Plans</field>
         <field name="res_model">content.plan</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -23,28 +23,42 @@
         <field name="name">content.plan.form</field>
         <field name="model">content.plan</field>
         <field name="arch" type="xml">
-            <form string="Estate Property">
+            <form string="Content Plan">
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,pending_approval,modification,approved,canceled"/>
+                </header>
                 <sheet>
-                    <group>
-                        <group>
-                            <field name="plan_title"></field>
-                        </group>
-                        <group>
-                            <field name="description"></field>
-                        </group>
-                    </group>
-                    <group>
-                        <group>
-                            <field name="partner_id"></field>
-                        </group>
-                        <group>
-                            <field name="status" attrs="{'readonly':True}"></field>
-                        </group>
-                    </group>
+                    <!-- Title and Description -->
+                    <div class="o_form_sheet">
+                        <div class="o_group">
+                            <div class="o_row align-items-center">
+                                <label for="plan_title" class="o_form_label col-md-3">Plan Title</label>
+                                <div class="col-md-9">
+                                    <h1><field name="plan_title" string="Plan Title"/></h1>
+                                </div>
+                            </div>
+                            <div class="o_row align-items-center">
+                                <label for="description" class="o_form_label col-md-3">Plan Description</label>
+                                <div class="col-md-9">
+                                    <p><field name="description" string="Plan Description"/></p>
+                                </div>
+                            </div>
+                            <div class="o_row align-items-center">
+                                <label for="partner_id" class="o_form_label col-md-3">Client</label>
+                                <div class="col-md-9">
+                                    <p><field name="partner_id" string="Client"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </sheet>
             </form>
         </field>
     </record>
+
+
+
+
 
     <record id="content_plan_view_search" model="ir.ui.view">
         <field name="name">content.plan.view.search</field>
