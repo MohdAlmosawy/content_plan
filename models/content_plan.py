@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 class ContentPlan(models.Model):
     _name="content.plan"
@@ -18,9 +18,23 @@ class ContentPlan(models.Model):
 
     contents_ids = fields.One2many('content.plan.contents','content_plan_id',string="Contents")
 
+    prevent_modification = fields.Boolean(
+        string="Prevent Modification",
+        default=False,
+        help="Set to True to prevent modifications when the plan is pending approval."
+    )
+
     def name_get(self):
         result = []
         for record in self:
             name = record.plan_title or 'Unnamed Content Plan'
             result.append((record.id, name))
         return result
+
+    def action_send_approval(self):
+        for plan in self:
+            # Change status to 'Pending Approval'
+            plan.status = 'pending_approval'
+            # Prevent modifications by setting a flag
+            plan.prevent_modification = True
+        return True
