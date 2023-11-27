@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="paperformat_euro_lowmargin" model="report.paperformat">
+    <!-- <record id="paperformat_euro_lowmargin" model="report.paperformat">
         <field name="name">European A4 low margin</field>
         <field name="default" eval="True"/>
         <field name="format">A4</field>
@@ -15,7 +15,7 @@
         <field name="header_line" eval="True"/>
         <field name="header_spacing">0</field>
         <field name="dpi">80</field>
-    </record>
+    </record> -->
 
 
     <record id="report_content_plan" model="ir.actions.report">
@@ -24,7 +24,7 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">content_plan.report_content_plan_template</field>
         <field name="report_file">content_plan.report_content_plan_template</field>
-        <field name="paperformat_id" ref="paperformat_euro_lowmargin"/>
+        <!-- <field name="paperformat_id" ref="paperformat_euro_lowmargin"/> -->
         <field name="binding_model_id" ref="model_content_plan"/>
         <field name="binding_type">report</field>
     </record>
