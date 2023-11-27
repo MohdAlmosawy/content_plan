@@ -11,7 +11,7 @@
     'data': [
         './security/ir.model.access.csv',
         'views/content_plan_views.xml',
-        'views/content_plan_contents_views.xml',
+        'views/content_plan_contents_type_views.xml',
         'views/content_plan_menus.xml',
         # Add more data files if needed
     ],
