@@ -33,12 +33,14 @@ class ContentPlan(models.Model):
 
     def action_send_approval(self):
         for plan in self:
-            plan.status = 'pending_approval'
-            plan.prevent_modification = True
+            if plan.status == 'draft':
+                plan.status = 'pending_approval'
+                plan.prevent_modification = True
         return True
 
     def action_reset_to_draft(self):
         for plan in self:
-            plan.status = 'draft'
-            plan.prevent_modification = False
+            if plan.status == 'pending_approval':
+                plan.status = 'draft'
+                plan.prevent_modification = False
         return True
