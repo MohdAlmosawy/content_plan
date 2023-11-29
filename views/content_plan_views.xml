@@ -25,6 +25,7 @@
         <field name="arch" type="xml">
             <form string="Content Plan">
                 <header>
+                    <field name="prevent_modification" invisible="1"/>
                     <button string="Send to Approval"
                             type="object"
                             name="action_send_approval"
@@ -65,36 +66,36 @@
                                 <div class="o_row align-items-center">
                                     <label for="plan_title" class="o_form_label col-md-3">Plan Title</label>
                                     <div class="col-md-9">
-                                        <h1><field name="plan_title" string="Plan Title"/></h1>
+                                        <h1><field name="plan_title" string="Plan Title" attrs="{'readonly': [('prevent_modification', '=', True)]}"/></h1>
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="description" class="o_form_label col-md-3">Plan Description</label>
                                     <div class="col-md-9">
-                                        <p><field name="description" string="Plan Description"/></p>
+                                        <p><field name="description" string="Plan Description" attrs="{'readonly': [('prevent_modification', '=', True)]}"/></p>
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="partner_id" class="o_form_label col-md-3">Client</label>
                                     <div class="col-md-9">
-                                        <p><field name="partner_id" string="Client"/></p>
+                                        <p><field name="partner_id" string="Client" attrs="{'readonly': [('prevent_modification', '=', True)]}"/></p>
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="start_date" class="o_form_label col-md-3">Start Date</label>
                                     <div class="col-md-3">
-                                        <field name="start_date"/>
+                                        <field name="start_date" attrs="{'readonly': [('prevent_modification', '=', True)]}"/>
                                     </div>
                                     <label for="end_date" class="o_form_label col-md-3">End Date</label>
                                     <div class="col-md-3">
-                                        <field name="end_date"/>
+                                        <field name="end_date" attrs="{'readonly': [('prevent_modification', '=', True)]}"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <notebook>
                             <page name="Contents" string="Contents">
-                                <field name="contents_ids" widget="content_plan_contents_view_tree"></field>
+                                <field name="contents_ids" widget="content_plan_contents_view_tree" attrs="{'readonly': [('prevent_modification', '=', True)]}"></field>
                             </page>
                         </notebook>
                 </sheet>
