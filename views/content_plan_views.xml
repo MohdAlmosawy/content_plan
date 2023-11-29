@@ -25,10 +25,36 @@
         <field name="arch" type="xml">
             <form string="Content Plan">
                 <header>
-                        <!-- <button invisible="status == 'draft'" string="Send to Approval" type="object" name="action_send_approval" class="oe_highlight" /> -->
-                    <!-- <t t-if="status == 'pending_approval'">
-                        <button string="Reset to Draft" type="object" name="action_reset_to_draft" class="oe_secondary" />
-                    </t> -->
+                    <button string="Send to Approval"
+                            type="object"
+                            name="action_send_approval"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('status', 'in', ['pending_approval', 'approved', 'canceled'])]}"
+                    />
+                    <button string="Approved"
+                            type="object"
+                            name="action_approved"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('status', '!=', 'pending_approval')]}"
+                    />
+                    <button string="Modification Requested"
+                            type="object"
+                            name="modification_requested"
+                            class="oe_secondary"
+                            attrs="{'invisible': [('status', '!=', 'pending_approval')]}"
+                    />
+                    <button string="Reset to Draft"
+                            type="object"
+                            name="action_reset_to_draft"
+                            class="oe_secondary"
+                            attrs="{'invisible': [('status', '!=', 'canceled')]}"
+                    />
+                    <button string="Cancel"
+                            type="object"
+                            name="action_cancel"
+                            class="oe_secondary"
+                            attrs="{'invisible': [('status', 'in', ['pending_approval', 'modification', 'canceled'])]}"
+                    />
                     <field name="status" widget="statusbar" statusbar_visible="draft,pending_approval,modification,approved,canceled"/>
                 </header>
 
