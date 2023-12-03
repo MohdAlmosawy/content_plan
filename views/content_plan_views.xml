@@ -26,76 +26,79 @@
             <form string="Content Plan">
                 <header>
                     <field name="prevent_modification" invisible="1"/>
+                    <field name="status" invisible="1"/>
                     <button string="Send to Approval"
                             type="object"
                             name="action_send_approval"
                             class="oe_highlight"
-                            attrs="{'invisible': [('status', 'in', ['pending_approval', 'approved', 'canceled'])]}"
+                            invisible="status not in ('draft', 'modification')"
                     />
-                    <button string="Approved"
+                    <button string="Approve"
                             type="object"
                             name="action_approved"
                             class="oe_highlight"
-                            attrs="{'invisible': [('status', '!=', 'pending_approval')]}"
+                            invisible="status != 'pending_approval'"
                     />
                     <button string="Modification Requested"
                             type="object"
                             name="modification_requested"
                             class="oe_secondary"
-                            attrs="{'invisible': [('status', '!=', 'pending_approval')]}"
+                            invisible="status != 'pending_approval'"
                     />
                     <button string="Reset to Draft"
                             type="object"
                             name="action_reset_to_draft"
                             class="oe_secondary"
-                            attrs="{'invisible': [('status', '!=', 'canceled')]}"
+                            invisible="status != 'canceled'"
                     />
                     <button string="Cancel"
                             type="object"
                             name="action_cancel"
                             class="oe_secondary"
-                            attrs="{'invisible': [('status', 'in', ['pending_approval', 'modification', 'canceled'])]}"
+                            invisible="status in ('pending_approval', 'modification', 'canceled')"
                     />
+
                     <field name="status" widget="statusbar" statusbar_visible="draft,pending_approval,modification,approved,canceled"/>
                 </header>
 
                 <sheet>
                         <!-- Title and Description -->
+                        
                         <div class="o_form_sheet">
                             <div class="o_group">
                                 <div class="o_row align-items-center">
                                     <label for="plan_title" class="o_form_label col-md-3">Plan Title</label>
                                     <div class="col-md-9">
-                                        <h1><field name="plan_title" string="Plan Title" attrs="{'readonly': [('prevent_modification', '=', True)]}"/></h1>
+                                        <h1><field name="plan_title" string="Plan Title" readonly="prevent_modification == True"/></h1>
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="description" class="o_form_label col-md-3">Plan Description</label>
                                     <div class="col-md-9">
-                                        <p><field name="description" string="Plan Description" attrs="{'readonly': [('prevent_modification', '=', True)]}"/></p>
+                                        <p><field name="description" string="Plan Description" readonly="prevent_modification == True"/></p>
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="partner_id" class="o_form_label col-md-3">Client</label>
                                     <div class="col-md-9">
-                                        <p><field name="partner_id" string="Client" attrs="{'readonly': [('prevent_modification', '=', True)]}"/></p>
+                                        <p><field name="partner_id" string="Client" readonly="prevent_modification == True"/></p>
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="start_date" class="o_form_label col-md-3">Start Date</label>
                                     <div class="col-md-3">
-                                        <field name="start_date" attrs="{'readonly': [('prevent_modification', '=', True)]}"/>
+                                        <field name="start_date" readonly="prevent_modification == True"/>
                                     </div>
                                     <label for="end_date" class="o_form_label col-md-3">End Date</label>
                                     <div class="col-md-3">
-                                        <field name="end_date" attrs="{'readonly': [('prevent_modification', '=', True)]}"/>
+                                        <field name="end_date" readonly="prevent_modification == True"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <notebook>
                             <page name="Contents" string="Contents">
-                                <field name="contents_ids" widget="content_plan_contents_view_tree" attrs="{'readonly': [('prevent_modification', '=', True)]}"></field>
+                                <field name="contents_ids" widget="content_plan_contents_view_tree" readonly="prevent_modification == True"></field>
                             </page>
                         </notebook>
                 </sheet>
