@@ -23,6 +23,7 @@
                                     <th>Type</th>
                                     <th>Title</th>
                                     <th>Content</th>
+                                    <th>Caption</th>
                                     <th>Notes</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,9 @@
                                     </td>
                                     <td>
                                         <span t-field="content.content"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="content.caption"/>
                                     </td>
                                     <td>
                                         <span t-field="content.notes"/>

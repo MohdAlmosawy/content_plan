@@ -9,6 +9,7 @@
                 <field name="content_title"></field>
                 <field name="content_plan_contents_type_id"></field>
                 <field name="content"></field>
+                <field name="caption"></field>
                 <field name="notes"></field>
             </tree>
         </field>
@@ -31,6 +32,9 @@
                      </group>
                      <group>
                         <field name="content"></field>
+                     </group>
+                     <group>
+                        <field name="caption"></field>
                      </group>
                      <group>
                         <field name="notes"></field>

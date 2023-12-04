@@ -10,4 +10,5 @@ class ContentPlanContents(models.Model):
     content_plan_contents_type_id = fields.Many2one("content.plan.contents.type",string="Post type")
     content_title = fields.Char(string='Title')
     content = fields.Text(string='Content')
+    caption = fields.Text(string='Post Caption') 
     notes = fields.Text(string='Notes')
