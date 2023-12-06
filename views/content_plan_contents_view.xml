@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Plan Contents">
                 <field name="date"></field>
+                <field name="hijri_date"></field>
                 <field name="content_title"></field>
                 <field name="content_plan_contents_type_id"></field>
                 <field name="content"></field>
@@ -23,6 +24,9 @@
                 <sheet>
                      <group>
                         <field name="date"></field>
+                     </group>
+                     <group>
+                        <field name="hijri_date"></field>
                      </group>
                      <group>
                         <field name="content_title"></field>
