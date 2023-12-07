@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="content_plan_date_occasions_action" model="ir.actions.act_window">
+        <field name="name">Dates Occasions</field>
+        <field name="res_model">content.plan.date.occasions</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="content_plan_date_occasions_view_form" model="ir.ui.view">
+        <field name="name">content.plan.date.occasions.view.form</field>
+        <field name="model">content.plan.date.occasions</field>
+        <field name="arch" type="xml">
+            <form string="Content Type">
+                <sheet>
+                    <group>
+                        <field name="name" class="h2"></field>
+                    </group>
+                    <group>
+                        <field name="day_month" class="h2"></field>
+                    </group>
+                    <group>
+                        <field name="hijri_day_month" class="h2"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+    <record id="content_plan_date_occasions_view_tree" model="ir.ui.view">
+        <field name="name">content.plan.date.occasions.view.tree</field>
+        <field name="model">content.plan.date.occasions</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                    <field name="name"></field>
+                    <field name="day_month"></field>
+                    <field name="hijri_day_month"></field>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

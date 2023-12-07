@@ -1,1 +1,1 @@
-from . import content_plan, content_plan_contents, content_plan_contents_type
+from . import content_plan, content_plan_contents, content_plan_contents_type, content_plan_date_occasions
