@@ -94,6 +94,16 @@
                                         <field name="end_date" readonly="prevent_modification == True"/>
                                     </div>
                                 </div>
+                                <div class="o_row align-items-center">
+                                    <label for="hijri_start_date" class="o_form_label col-md-3">Hijri Start Date</label>
+                                    <div class="col-md-3">
+                                        <field name="hijri_start_date" readonly="True"/>
+                                    </div>
+                                    <label for="hijri_end_date" class="o_form_label col-md-3">Hijri End Date</label>
+                                    <div class="col-md-3">
+                                        <field name="hijri_end_date" readonly="True"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <notebook>
