@@ -1,5 +1,9 @@
 from odoo import fields, models, api
 from hijridate import Hijri, Gregorian
+import logging
+import datetime
+
+_logger = logging.getLogger(__name__)
 
 class ContentPlanContents(models.Model):
     _name = "content.plan.contents"
@@ -17,6 +21,7 @@ class ContentPlanContents(models.Model):
 
     @api.depends('date')
     def _compute_hijri_date(self):
+        _logger.info("Computing Hijri date triggered")
         for record in self:
             # Convert Gregorian date to Hijri
             gregorian_date = record.date
@@ -44,3 +49,36 @@ class ContentPlanContents(models.Model):
                         raise  # Re-raise the OverflowError for other issues
             else:
                 record.hijri_date = ""
+
+    @api.onchange('date')
+    def _compute_notes_with_occasions(self):
+        _logger.info("Computing notes with occasions triggered")
+        for content in self:
+            occasion_names = []
+            try:
+                _logger.info("Fetching date occasions")
+                date_occasions = self.env['content.plan.date.occasions'].search([])
+                _logger.info(f"date_occasions: {date_occasions}")
+
+                for occasion in date_occasions:
+                    _logger.info("Checking occasion for content date")
+                    if content.date and isinstance(content.date, datetime.date):
+                        _logger.info(f"content.date.strftime: {content.date.strftime('%m-%d')}")
+                        _logger.info(f"occasion.day_month: {occasion.day_month}")
+                        if content.date.strftime('%m-%d') == occasion.day_month:
+                            _logger.info("Occasion found for content date")
+                            occasion_names.append(occasion.name)
+
+                    _logger.info("Checking occasion for content hijri date")
+                    _logger.info(f"content.hijri_date: {content.hijri_date}")
+                    _logger.info(f"occasion.hijri_day_month: {occasion.hijri_day_month}")
+                    if content.hijri_date[-5:] == occasion.hijri_day_month:
+                        _logger.info("Occasion found for content hijri date")
+                        occasion_names.append(occasion.name)
+
+                _logger.info("Joining occasion names")
+                content.notes = ', '.join(occasion_names)
+            except Exception as e:
+                content.notes = ''
+                _logger.error(f"An error occurred: {e}")
+                raise exceptions.UserError(f"An error occurred: {e}")
