@@ -1,5 +1,12 @@
 from odoo import fields, models, api
 from hijridate import Hijri, Gregorian
+import logging
+from datetime import datetime
+import datetime
+from dateutil.relativedelta import relativedelta
+
+
+_logger = logging.getLogger(__name__)
 
 class ContentPlan(models.Model):
     _name="content.plan"
@@ -18,6 +25,8 @@ class ContentPlan(models.Model):
     hijri_start_date = fields.Char(string='Hijri Start', compute='_compute_hijri_date', readonly=True)
     end_date = fields.Date(string="End Date")
     hijri_end_date = fields.Char(string='Hijri End', compute='_compute_hijri_date', readonly=True)
+
+    occasions = fields.Text(string='Occasions', compute='_compute_occasions')
 
     contents_ids = fields.One2many('content.plan.contents','content_plan_id',string="Contents")
 
@@ -113,3 +122,28 @@ class ContentPlan(models.Model):
             
             else:
                 record.hijri_end_date = ""
+
+    @api.depends('start_date', 'end_date')
+    def _compute_occasions(self):
+        for record in self:
+            try:
+                record.occasions = []  # Assign a default value
+                start_date = record.start_date
+                end_date = record.end_date
+                date_range = []
+                current_date = start_date
+                while current_date <= end_date:
+                    date_range.append(current_date)
+                    current_date += relativedelta(days=1)
+
+                occasions = self.env['content.plan.date.occasions'].search([])
+                occasion_info = []
+                for date in date_range:
+                    for occasion in occasions:
+                        if date.strftime("%m-%d") == occasion.day_month :
+                            occasion_info.append((occasion.day_month, occasion.name))
+
+                record.occasions = occasion_info
+            except Exception as e:
+                # Handle exception
+                pass
