@@ -105,10 +105,10 @@
                                     </div>
                                 </div>
                                 <div class="o_row align-items-center">
-                                    <label for="occasions" class="o_form_label col-md-3">Occasions</label>
-                                    <div class="col-md-9">
-                                        <p><field name="occasions" string="occasions" readonly="True"/></p>
-                                    </div>
+                                    <label for="occasions_display" class="o_form_label col-md-3">Occasions</label>
+                                <div class="col-md-3">
+                                    <pre><field name="occasions_display" string="occasions" readonly="True" nolabel="1"/></pre>
+                                </div>
                                 </div>
                             </div>
                         </div>

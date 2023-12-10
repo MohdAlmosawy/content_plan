@@ -27,6 +27,7 @@ class ContentPlan(models.Model):
     hijri_end_date = fields.Char(string='Hijri End', compute='_compute_hijri_date', readonly=True)
 
     occasions = fields.Text(string='Occasions', compute='_compute_occasions')
+    occasions_display = fields.Char(compute='_compute_occasions_display')
 
     contents_ids = fields.One2many('content.plan.contents','content_plan_id',string="Contents")
 
@@ -147,3 +148,9 @@ class ContentPlan(models.Model):
             except Exception as e:
                 # Handle exception
                 pass
+
+    @api.depends('occasions')
+    def _compute_occasions_display(self):
+        for record in self:
+            occasions_list = eval(record.occasions)
+            record.occasions_display = '\n'.join([f"{occ[0]} : {occ[1]}" for occ in occasions_list])
