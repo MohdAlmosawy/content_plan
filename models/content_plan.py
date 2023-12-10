@@ -28,6 +28,8 @@ class ContentPlan(models.Model):
 
     occasions = fields.Text(string='Occasions', compute='_compute_occasions')
     occasions_display = fields.Char(compute='_compute_occasions_display')
+    hijri_occasions = fields.Text(string='Hijri Occasions', compute='_compute_occasions')
+    hijri_occasions_display = fields.Char(compute='_compute_hijri_occasions_display')
 
     contents_ids = fields.One2many('content.plan.contents','content_plan_id',string="Contents")
 
@@ -139,12 +141,16 @@ class ContentPlan(models.Model):
 
                 occasions = self.env['content.plan.date.occasions'].search([])
                 occasion_info = []
+                hijri_occasion_info = []
                 for date in date_range:
                     for occasion in occasions:
                         if date.strftime("%m-%d") == occasion.day_month :
                             occasion_info.append((occasion.day_month, occasion.name))
+                        if str(Gregorian(date.year, date.month, date.day).to_hijri())[-5:] == occasion.hijri_day_month:
+                            hijri_occasion_info.append((occasion.hijri_day_month, occasion.name))
 
                 record.occasions = occasion_info
+                record.hijri_occasions = hijri_occasion_info
             except Exception as e:
                 # Handle exception
                 pass
@@ -154,3 +160,12 @@ class ContentPlan(models.Model):
         for record in self:
             occasions_list = eval(record.occasions)
             record.occasions_display = '\n'.join([f"{occ[0]} : {occ[1]}" for occ in occasions_list])
+    
+    @api.depends('hijri_occasions')
+    def _compute_hijri_occasions_display(self):
+        for record in self:
+            hijri_occasions_list = eval(record.hijri_occasions)
+            record.hijri_occasions_display = '\n'.join([f"{hij_occ[0]} : {hij_occ[1]}" for hij_occ in hijri_occasions_list])
+
+    # if content.hijri_date and content.hijri_date[-5:] == occasion.hijri_day_month:
+    #             occasion_names.append(occasion.name)

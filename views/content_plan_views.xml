@@ -106,9 +106,13 @@
                                 </div>
                                 <div class="o_row align-items-center">
                                     <label for="occasions_display" class="o_form_label col-md-3">Occasions</label>
-                                <div class="col-md-3">
-                                    <pre><field name="occasions_display" string="occasions" readonly="True" nolabel="1"/></pre>
-                                </div>
+                                    <div class="col-md-3">
+                                        <pre><field name="occasions_display" string="occasions" readonly="True" nolabel="1"/></pre>
+                                    </div>
+                                    <label for="hijri_occasions_display" class="o_form_label col-md-3">Hijri Occasions</label>
+                                    <div class="col-md-3">
+                                        <pre><field name="hijri_occasions_display" string="hijri_occasions" readonly="True" nolabel="1"/></pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
