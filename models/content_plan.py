@@ -166,6 +166,8 @@ class ContentPlan(models.Model):
         for record in self:
             hijri_occasions_list = eval(record.hijri_occasions)
             record.hijri_occasions_display = '\n'.join([f"{hij_occ[0]} : {hij_occ[1]}" for hij_occ in hijri_occasions_list])
+        else:
+            record.hijri_occasions_display = ''  # Handle the case where hijri_occasions is empty or None
 
     # if content.hijri_date and content.hijri_date[-5:] == occasion.hijri_day_month:
     #             occasion_names.append(occasion.name)
