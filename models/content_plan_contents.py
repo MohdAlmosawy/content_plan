@@ -71,3 +71,12 @@ class ContentPlanContents(models.Model):
                 content.notes = ''
                 _logger.error(f"An error occurred: {e}")
                 raise exceptions.UserError(f"An error occurred: {e}")
+
+    def open_content_plan_contents_form(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'content.plan.contents',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
