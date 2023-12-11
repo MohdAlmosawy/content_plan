@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <record id="content_plan_contents_action" model="ir.actions.act_window">
+        <field name="name">All Contents</field>
+        <field name="res_model">content.plan.contents</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <record id="content_plan_contents_view_tree" model="ir.ui.view">
         <field name="name">content.plan.contents.view.tree</field>
         <field name="model">content.plan.contents</field>
@@ -44,6 +51,13 @@
                         <field name="notes"></field>
                      </group>
                 </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
             </form>
         </field>
     </record>

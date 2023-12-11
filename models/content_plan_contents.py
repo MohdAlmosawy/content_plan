@@ -8,16 +8,17 @@ _logger = logging.getLogger(__name__)
 class ContentPlanContents(models.Model):
     _name = "content.plan.contents"
     _description = "Plan Contents"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     content_plan_id = fields.Many2one("content.plan", string="Content Plan")
 
-    date = fields.Date(string='Publishing Date')
+    date = fields.Date(string='Publishing Date', tracking=True)
     hijri_date = fields.Char(string='Hijri', compute='_compute_hijri_date', readonly=True)
-    content_plan_contents_type_id = fields.Many2one("content.plan.contents.type",string="Post type")
-    content_title = fields.Char(string='Title')
-    content = fields.Text(string='Content')
-    caption = fields.Text(string='Post Caption') 
-    notes = fields.Text(string='Notes')
+    content_plan_contents_type_id = fields.Many2one("content.plan.contents.type",string="Post type", tracking=True)
+    content_title = fields.Char(string='Title', tracking=True)
+    content = fields.Text(string='Content', tracking=True)
+    caption = fields.Text(string='Post Caption', tracking=True) 
+    notes = fields.Text(string='Notes', tracking=True)
 
     @api.depends('date')
     def _compute_hijri_date(self):

@@ -3,6 +3,7 @@
     <menuitem id="content_plan_menu_root" name="Content Plan">
         <menuitem id="content_plan_menu" name="Plans">
             <menuitem id="content_plan_menu_action" action="content_plan_action"></menuitem>
+            <menuitem id="content_plan_contents_menu_action" action="content_plan_contents_action"></menuitem>
         </menuitem>
         <menuitem id="content_plan_settings_menu" sequence="51" name="Settings">
             <menuitem id="content_plan_contents_type_menu_action" action="content_plan_contents_type_action"></menuitem>
