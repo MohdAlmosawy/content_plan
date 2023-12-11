@@ -4,6 +4,7 @@ import logging
 from datetime import datetime
 import datetime
 from dateutil.relativedelta import relativedelta
+import json
 
 
 _logger = logging.getLogger(__name__)
@@ -160,14 +161,22 @@ class ContentPlan(models.Model):
         for record in self:
             occasions_list = eval(record.occasions)
             record.occasions_display = '\n'.join([f"{occ[0]} : {occ[1]}" for occ in occasions_list])
+
     
     @api.depends('hijri_occasions')
     def _compute_hijri_occasions_display(self):
         for record in self:
-            hijri_occasions_list = eval(record.hijri_occasions)
-            record.hijri_occasions_display = '\n'.join([f"{hij_occ[0]} : {hij_occ[1]}" for hij_occ in hijri_occasions_list])
-        else:
-            record.hijri_occasions_display = ''  # Handle the case where hijri_occasions is empty or None
+            try:
+                if record.hijri_occasions:
+                    # Extracting the content within the brackets
+                    data_str = record.hijri_occasions[2:-2]  # Assuming the format is always "('05-24', 'today is the day 2')"
+                    # Splitting the string to get individual tuples
+                    data_list = data_str.split("), (")
+                    # Convert each tuple string to a tuple, remove single quotes, and format for display
+                    hijri_occasions_list = [tuple(entry.replace("'", "").split(", ")) for entry in data_list]
+                    record.hijri_occasions_display = '\n'.join([f"{hij_occ[0]} : {hij_occ[1]}" for hij_occ in hijri_occasions_list])
+                else:
+                    record.hijri_occasions_display = ''  # Handle the case where hijri_occasions is empty or None
+            except Exception as e:
+                record.hijri_occasions_display = 'Invalid data format or processing error'  # Set a default value or error message
 
-    # if content.hijri_date and content.hijri_date[-5:] == occasion.hijri_day_month:
-    #             occasion_names.append(occasion.name)
