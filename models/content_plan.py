@@ -12,15 +12,17 @@ _logger = logging.getLogger(__name__)
 class ContentPlan(models.Model):
     _name="content.plan"
     _description= "Content Plan"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     active = fields.Boolean(default=True)
-    plan_title = fields.Char(required=True)
-    description = fields.Text()
-    partner_id = fields.Many2one('res.partner',string="Client",index= True,copy = False)
+    plan_title = fields.Char(required=True, tracking=True)
+    description = fields.Text(tracking=True)
+    partner_id = fields.Many2one('res.partner',string="Client",index= True,copy = False, tracking=True)
     status = fields.Selection(
         string="Status",
         selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('approved','Approved'),('canceled','Canceled')],
-        default = 'draft'
+        default = 'draft',
+        tracking=True
     )
     start_date = fields.Date(string="Start Date")
     hijri_start_date = fields.Char(string='Hijri Start', compute='_compute_hijri_date', readonly=True)
