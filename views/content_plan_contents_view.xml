@@ -11,7 +11,7 @@
         <field name="name">content.plan.contents.view.tree</field>
         <field name="model">content.plan.contents</field>
         <field name="arch" type="xml">
-            <tree string="Plan Contents">
+            <tree string="Plan Contents" default_order="date asc">
                 <field name="date"></field>
                 <field name="hijri_date"></field>
                 <field name="content_title"></field>
