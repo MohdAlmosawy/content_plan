@@ -116,6 +116,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="o_form_sheet">
+                            <div class="o_group">
+                                <div class="o_row align-items-center">
+                                    <label for="plan_notes" class="o_form_label col-md-3">Client Plan Notes</label>
+                                    <div class="col-md-9">
+                                        <p><field name="plan_notes" string="Notes" readonly="1"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <notebook>
                             <page name="Contents" string="Contents">
                                 <field name="contents_ids" widget="content_plan_contents_view_tree" readonly="prevent_modification == True"></field>

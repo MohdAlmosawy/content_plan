@@ -7,6 +7,7 @@
         <menuitem id="content_plan_settings_menu" sequence="51" name="Settings">
             <menuitem id="content_plan_contents_type_menu_action" action="content_plan_contents_type_action"></menuitem>
             <menuitem id="content_plan_date_occasions_menu_action" action="content_plan_date_occasions_action"></menuitem>
+            <menuitem id="content_plan_notes_menu_action" action="content_plan_notes_action"></menuitem>
         </menuitem>
     </menuitem>
 </odoo>

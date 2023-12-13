@@ -4,3 +4,4 @@
 "access_ir_model_content_plan_contents","ir_content_plan_contents","model_content_plan_contents","base.group_user",1,1,1,1
 "access_ir_model_content_plan_contents_type","ir_content_plan_contents_type","model_content_plan_contents_type","base.group_user",1,1,1,1
 "access_ir_model_content_plan_date_occasions","ir_content_plan_date_occasions","model_content_plan_date_occasions","base.group_user",1,1,1,1
+"access_ir_model_content_plan_notes","ir_content_plan_notes","model_content_plan_notes","base.group_user",1,1,1,1

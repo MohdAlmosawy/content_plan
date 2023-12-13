@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="content_plan_notes_action" model="ir.actions.act_window">
+        <field name="name">Client Plan Notes</field>
+        <field name="res_model">content.plan.notes</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="content_plan_notes_view_form" model="ir.ui.view">
+        <field name="name">content.plan.notes.view.form</field>
+        <field name="model">content.plan.notes</field>
+        <field name="arch" type="xml">
+            <form string="notes">
+                <sheet>
+                    <div class="o_form_sheet">
+                       <div class="o_group">
+                            <div class="o_row align-items-center">
+                                <label class="o_form_label" for="partner_id"> Client </label>
+                                <field name="partner_id" string="Client"/>
+                            </div>
+                        </div>
+                        <div class="o_form_sheet">
+                            <div class="o_group">
+                                <label class="o_form_label" for="plan_notes"> Notes </label>
+                                <field name="plan_notes" string="Notes"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+    <record id="content_plan_notes_view_tree" model="ir.ui.view">
+        <field name="name">content.plan.notes.view.tree</field>
+        <field name="model">content.plan.notes</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                    <field name="partner_id" string="Client"/>
+                    <field name="plan_notes" string="Notes"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

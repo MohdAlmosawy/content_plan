@@ -18,6 +18,9 @@ class ContentPlan(models.Model):
     plan_title = fields.Char(required=True, tracking=True)
     description = fields.Text(tracking=True)
     partner_id = fields.Many2one('res.partner',string="Client",index= True,copy = False, tracking=True)
+
+    plan_notes = fields.Text(string="Plan Notes", tracking=True, compute='_compute_plan_notes', readonly=True)
+    
     status = fields.Selection(
         string="Status",
         selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('approved','Approved'),('canceled','Canceled')],
@@ -182,3 +185,11 @@ class ContentPlan(models.Model):
             except Exception as e:
                 record.hijri_occasions_display = 'Invalid data format or processing error'  # Set a default value or error message
 
+    @api.depends('partner_id')
+    def _compute_plan_notes(self):
+        for record in self:
+            if record.partner_id:
+                related_notes = self.env['content.plan.notes'].search([('partner_id', '=', record.partner_id.id)])
+                record.plan_notes = related_notes.plan_notes if related_notes else ''
+            else:
+                record.plan_notes = ''
