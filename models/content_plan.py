@@ -15,9 +15,9 @@ class ContentPlan(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     active = fields.Boolean(default=True)
-    plan_title = fields.Char(required=True, tracking=True)
+    plan_title = fields.Char(tracking=True, compute='_compute_plan_title', readonly=True)
     description = fields.Text(tracking=True)
-    partner_id = fields.Many2one('res.partner',string="Client",index= True,copy = False, tracking=True)
+    partner_id = fields.Many2one('res.partner',string="Client",index= True,copy = False, tracking=True, required=True)
 
     plan_notes = fields.Text(string="Plan Notes", tracking=True, compute='_compute_plan_notes', readonly=True)
     
@@ -27,9 +27,9 @@ class ContentPlan(models.Model):
         default = 'draft',
         tracking=True
     )
-    start_date = fields.Date(string="Start Date")
+    start_date = fields.Date(string="Start Date", required=True)
     hijri_start_date = fields.Char(string='Hijri Start', compute='_compute_hijri_date', readonly=True)
-    end_date = fields.Date(string="End Date")
+    end_date = fields.Date(string="End Date", required=True)
     hijri_end_date = fields.Char(string='Hijri End', compute='_compute_hijri_date', readonly=True)
 
     occasions = fields.Text(string='Occasions', compute='_compute_occasions')
@@ -193,3 +193,15 @@ class ContentPlan(models.Model):
                 record.plan_notes = related_notes.plan_notes if related_notes else ''
             else:
                 record.plan_notes = ''
+
+    @api.depends('partner_id', 'start_date', 'end_date')
+    def _compute_plan_title(self):
+        for record in self:
+            if record.partner_id and record.start_date and record.end_date:
+                partner_name = record.partner_id.name
+                if record.start_date.month == record.end_date.month:
+                    record.plan_title = f"{record.end_date.year} : {record.start_date.month} | {partner_name} Content Plan"
+                else:
+                    record.plan_title = f"{record.end_date.year} : {record.start_date.month} - {record.end_date.month} | {partner_name} Content Plan"
+            else:
+                record.plan_title = 'New Plan'

@@ -2,10 +2,10 @@
 <odoo>
 
     <record id="report_content_plan" model="ir.actions.report">
-        <field name="name">Full Content Plan</field>
+        <field name="name">Print Plan</field>
         <field name="model">content.plan</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">content_plan.report_content_plan_template</field>
+        <field name="print_report_name">(object.plan_title)</field>
         <field name="report_file">content_plan.report_content_plan_template</field>
         <field name="binding_model_id" ref="model_content_plan"/>
         <field name="binding_type">report</field>
