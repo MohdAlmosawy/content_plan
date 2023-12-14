@@ -30,7 +30,7 @@
                             </thead>
                             <tbody>
                                 <t t-set="plan_contents" t-value="plan.contents_ids"/>
-                                <tr t-foreach="plan_contents" t-as="content">
+                                <tr t-foreach="plan_contents.sorted('date')" t-as="content">
                                     <td>
                                         <span t-field="content.date"/>
                                     </td>
