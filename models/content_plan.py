@@ -205,3 +205,14 @@ class ContentPlan(models.Model):
                     record.plan_title = f"{record.end_date.year} : {record.start_date.month} - {record.end_date.month} | {partner_name} Content Plan"
             else:
                 record.plan_title = 'New Plan'
+
+    def action_approved(self):
+        for plan in self:
+            if plan.status == 'pending_approval':
+                plan.status = 'approved'
+                plan.prevent_modification = True
+                self.env['project.project'].create({
+                    'name': plan.plan_title,
+                    # add other necessary fields here
+                })
+        return True
