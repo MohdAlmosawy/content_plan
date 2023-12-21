@@ -211,8 +211,14 @@ class ContentPlan(models.Model):
             if plan.status == 'pending_approval':
                 plan.status = 'approved'
                 plan.prevent_modification = True
-                self.env['project.project'].create({
+                new_project = self.env['project.project'].create({
                     'name': plan.plan_title,
                     # add other necessary fields here
                 })
+                for content in plan.contents_ids:
+                    self.env['project.task'].create({
+                        'name': content.content_title,
+                        'project_id': new_project.id,
+                        # add other necessary fields here
+                    })
         return True
