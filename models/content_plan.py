@@ -214,6 +214,10 @@ class ContentPlan(models.Model):
                 plan.prevent_modification = True
                 new_project = self.env['project.project'].create({
                     'name': plan.plan_title,
+                    'user_id': None,
+                    'partner_id': plan.partner_id.id,
+                    'description': plan.description,
+                    'date_start': plan.start_date,
                     # add other necessary fields here
                 })
                 stage = self.env['project.project.stage'].search([('name', '=', 'Ice Box')], limit=1)
