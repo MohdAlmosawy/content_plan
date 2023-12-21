@@ -215,6 +215,17 @@ class ContentPlan(models.Model):
                     'name': plan.plan_title,
                     # add other necessary fields here
                 })
+                stages = ['To Do', 'Recived', 'Processing', 'Review', 'Adjustments', 'Completed', 'Closed']
+                for stage_name in stages:
+                    stage = self.env['project.project.stage'].search([('name', '=', stage_name)], limit=1)
+                    if not stage:
+                        stage = self.env['project.project.stage'].create({
+                            'name': stage_name,
+                        })
+                    if stage_name == 'To Do':
+                        new_project.write({
+                            'stage_id': stage.id,
+                        })
                 for content in plan.contents_ids:
                     self.env['project.task'].create({
                         'name': content.content_title,
