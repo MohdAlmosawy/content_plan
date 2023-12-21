@@ -207,6 +207,7 @@ class ContentPlan(models.Model):
                 record.plan_title = 'New Plan'
 
     def action_approved(self):
+        task_stages = ['To Do', 'Received', 'Processing', 'Review', 'Adjustments', 'Completed', 'Closed']
         for plan in self:
             if plan.status == 'pending_approval':
                 plan.status = 'approved'
@@ -220,10 +221,18 @@ class ContentPlan(models.Model):
                     new_project.write({
                         'stage_id': stage.id,
                     })
+                for task_stage in task_stages:
+                    self.env['project.task.type'].create({
+                        'name': task_stage,
+                        'project_ids': [(4, new_project.id)],
+                        # add other necessary fields here
+                    })
+                to_do_stage = self.env['project.task.type'].search([('name', '=', 'To Do')], limit=1)
                 for content in plan.contents_ids:
                     self.env['project.task'].create({
                         'name': content.content_title,
                         'project_id': new_project.id,
+                        'stage_id': to_do_stage.id if to_do_stage else None,
                         # add other necessary fields here
                     })
         return True
