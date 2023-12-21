@@ -220,6 +220,15 @@ class ContentPlan(models.Model):
                     'date_start': plan.start_date,
                     # add other necessary fields here
                 })
+                # Add a message to the chatter
+                self.env['mail.message'].create({
+                    'body': "This project was created from approving the plan <a href='#' data-oe-model='content.plan' data-oe-id='%s'>%s</a>" % (plan.id, plan.plan_title),
+                    'record_name': new_project.name,
+                    'model': 'project.project',
+                    'res_id': new_project.id,
+                    'message_type': 'notification',
+                    'subtype_id': self.env.ref('mail.mt_note').id,
+                })
                 stage = self.env['project.project.stage'].search([('name', '=', 'Ice Box')], limit=1)
                 if stage:
                     new_project.write({
