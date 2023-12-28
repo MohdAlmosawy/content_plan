@@ -36,4 +36,39 @@
             </div>
         </xpath>
     </template>
+
+    <template id="content_plan.portal_my_plans" name="My Plans">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Plans</t>
+            </t>
+            <div t-if="not plans" class="alert alert-warning" role="alert">
+                There are currently no plans for your account.
+            </div>
+            <t t-if="plans" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Plan Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <t t-foreach="plans" t-as="plan">
+                    <tr>
+                        <!-- <a t-att-href="plan.get_portal_url()"></a> -->
+                        <td><t t-out="plan.plan_title"/></td>
+                        <td><t t-out="plan.description"/></td>
+                        <td><span t-field="plan.status"/></td>
+                        <td><span t-field="plan.start_date"/></td>
+                        <td><span t-field="plan.end_date"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
 </odoo>
