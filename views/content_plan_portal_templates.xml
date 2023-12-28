@@ -44,6 +44,9 @@
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">Plans</t>
             </t>
+
+            <!-- TO DO : Add breadcrumbs -->
+
             <div t-if="not plans" class="alert alert-warning" role="alert">
                 There are currently no plans for your account.
             </div>
@@ -59,8 +62,7 @@
                 </thead>
                 <t t-foreach="plans" t-as="plan">
                     <tr>
-                        <!-- <a t-att-href="plan.get_portal_url()"></a> -->
-                        <td><t t-out="plan.plan_title"/></td>
+                        <td><a t-att-href="plan.get_portal_url()"><t t-out="plan.plan_title"/></a></td>
                         <td><t t-out="plan.description"/></td>
                         <td><span t-field="plan.status"/></td>
                         <td><span t-field="plan.start_date"/></td>
@@ -70,5 +72,74 @@
             </t>
         </t>
     </template>
+
+    <template id="content_plan.portal_plan_details" name="Portal Plan Details" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <!-- Add specific plan details and actions -->
+            <div class="row mt-3 o_portal_sale_sidebar">
+                <!-- Sidebar -->
+                <!-- Your existing sidebar content -->
+
+                <!-- Page content -->
+                <div id="plan_content" class="col-12 col-lg-9 col-xl-8 mt-5 mt-lg-0">
+                    <!-- Plan details and actions -->
+                    <div class="mt-3">
+                        <!-- Plan Title and Description -->
+                        <h2 t-field="plan.plan_title" class="mb-2"/>
+                        <p t-field="plan.description" class="text-muted mb-4"/>
+
+                        <!-- Action buttons -->
+                        <!-- Add buttons for approving, modifying, etc., similar to the Sales Order portal -->
+                        <t t-if="plan.status == 'pending_approval'">
+                            <div class="mt-3">
+                                <a t-attf-href="/my/plans/approve/#{plan.id}" class="btn btn-primary">Approve Plan</a>
+                            </div>
+                        </t>
+
+                        <!-- Contact person -->
+                    </div>
+
+                    <!-- Plan contents table -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Hijri Date</th>
+                                <th>Type</th>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Caption</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="plan.contents_ids" t-as="content">
+                                <tr>
+                                    <td><t t-esc="content.date"/></td>
+                                    <td><t t-esc="content.hijri_date"/></td>
+                                    <td><t t-esc="content.content_plan_contents_type_id.name"/></td>
+                                    <td><t t-esc="content.content_title"/></td>
+                                    <td><t t-esc="content.content"/></td>
+                                    <td><t t-esc="content.caption"/></td>
+                                    <td><t t-esc="content.notes"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <!-- Chatter / Communication history -->
+                    <div id="plan_communication" class="mt-4">
+                        <h3>Communication history</h3>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="plan"/>
+                        </t>
+                    </div>
+                </div><!-- // #plan_content -->
+            </div>
+        </xpath>
+    </template>
+
+
+
+
 
 </odoo>

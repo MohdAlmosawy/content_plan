@@ -33,3 +33,31 @@ class ContentPlanPortal(http.Controller):
     def portal_my_plans(self, page=1, **kwargs):
         values = self._prepare_plan_portal_rendering_values(page=page, **kwargs)
         return http.request.render("content_plan.portal_my_plans", values)
+
+    @http.route('/my/plans/<int:plan_id>/details', type='http', auth="user", website=True)
+    def portal_plan_details(self, plan_id=None, **kwargs):
+        Plan = http.request.env['content.plan']
+        if not plan_id:
+            # Handle case where no plan_id is provided
+            return http.request.redirect('/my/plans')
+
+        plan = Plan.browse(plan_id)
+        if not plan:
+            # Handle case where plan_id doesn't exist
+            return http.request.redirect('/my/plans')
+
+        values = {
+            'plan': plan,
+        }
+        return http.request.render("content_plan.portal_plan_details", values)
+
+    @http.route(['/my/plans/approve/<int:plan_id>'], type='http', auth="user", website=True)
+    def approve_plan(self, plan_id, **post):
+        # Fetch the plan record
+        plan = http.request.env['content.plan'].sudo().browse(plan_id)
+
+        # Trigger the action_approved method
+        plan.action_approved()
+
+        # Redirect to some page or return a response
+        return http.request.redirect('/my/plans')  # Redirect to plans page after approval

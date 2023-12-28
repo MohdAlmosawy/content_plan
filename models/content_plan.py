@@ -259,3 +259,9 @@ class ContentPlan(models.Model):
                         # add other necessary fields here
                     })
         return True
+
+    def get_portal_url(self):
+        # Define the logic to generate the URL for each plan
+        base_url = '/my/plans/'  # Replace this with your actual base URL for plan details
+        # Assuming plan_details() takes an argument 'plan_id'
+        return f"{base_url}{self.id}/details"  # Example: '/my/plans/123/details'
