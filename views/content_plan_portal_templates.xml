@@ -79,7 +79,28 @@
             <div class="row mt-3 o_portal_sale_sidebar">
                 <!-- Sidebar -->
                 <!-- Your existing sidebar content -->
-
+                <t t-call="portal.portal_record_sidebar" id="sale_order_portal_sidebar">
+                    <t t-set="classes" t-value="'d-print-none col-lg-3 col-xl-4'"/>
+                    <t t-set="entries">
+                        <div class="d-flex flex-column gap-4">
+                            <div class="d-flex flex-column gap-2" id="sale_order_sidebar_button">
+                                <!-- Action buttons -->
+                                <!-- Add buttons for approving, modifying, etc., similar to the Sales Order portal -->
+                                <t t-if="plan.status == 'pending_approval'">
+                                    <div class="mt-3">
+                                        <a t-attf-href="/my/plans/approve/#{plan.id}" class="btn btn-primary">Approve Plan</a>
+                                    </div>
+                                </t>
+                                <t t-if="plan.status == 'pending_approval'">
+                                    <div class="mt-3">
+                                        <a t-attf-href="/my/plans/request_modification/#{plan.id}" class="btn btn-secondary">Send To Modification</a>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                    <!-- Contact person -->
+                </t>
                 <!-- Page content -->
                 <div id="plan_content" class="col-12 col-lg-9 col-xl-8 mt-5 mt-lg-0">
                     <!-- Plan details and actions -->
@@ -88,19 +109,6 @@
                         <h2 t-field="plan.plan_title" class="mb-2"/>
                         <p t-field="plan.description" class="text-muted mb-4"/>
 
-                        <!-- Action buttons -->
-                        <!-- Add buttons for approving, modifying, etc., similar to the Sales Order portal -->
-                        <t t-if="plan.status == 'pending_approval'">
-                            <div class="mt-3">
-                                <a t-attf-href="/my/plans/approve/#{plan.id}" class="btn btn-primary">Approve Plan</a>
-                            </div>
-                        </t>
-                        <t t-if="plan.status == 'pending_approval'">
-                            <div class="mt-3">
-                                <a t-attf-href="/my/plans/request_modification/#{plan.id}" class="btn btn-secondary">Send To Modification</a>
-                            </div>
-                        </t>
-                        <!-- Contact person -->
                     </div>
 
                     <!-- Plan contents table -->
@@ -141,6 +149,7 @@
             </div>
         </xpath>
     </template>
+
 
 
 
