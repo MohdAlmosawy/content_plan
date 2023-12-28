@@ -1,0 +1,39 @@
+<odoo>
+    <template id="my_portal_extension" inherit_id="portal.portal_my_home" priority="25">
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <!-- Content Plans -->
+            <div class="o_portal_index_card col-md-6 order-2">
+                <a href="/my/plans" title="Content Plans" class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">
+                    <div class="o_portal_icon align-self-start">
+                        <img src="/path_to_your_icon.svg" loading="lazy" style=""/>
+                    </div>
+                    <div>
+                        <h5 class="mt-0 mb-1 d-flex gap-2">
+                            <span>Content Plans</span>
+                        </h5>
+                        <p class="m-0 text-600">
+                            View and manage your content plans
+                        </p>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Social Media Management -->
+            <div class="o_portal_index_card col-md-6 order-2">
+                <a href="/my/social" title="Social Media Management" class="d-flex justify-content-start gap-2 gap-md-3 align-items-center py-3 pe-2 px-md-3 h-100 rounded text-decoration-none text-reset text-bg-light">
+                    <div class="o_portal_icon align-self-start">
+                        <img src="/path_to_social_icon.svg" loading="lazy" style=""/>
+                    </div>
+                    <div>
+                        <h5 class="mt-0 mb-1 d-flex gap-2">
+                            <span>Social Media Management</span>
+                        </h5>
+                        <p class="m-0 text-600">
+                            View and manage your social media content
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </xpath>
+    </template>
+</odoo>

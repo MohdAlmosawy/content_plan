@@ -8,7 +8,7 @@
     'description': 'Module to create and manage social media plans for clients.',
     'author': 'TecPill - Sayed Mohd Ebrahim',
     'license': 'OPL-1',
-    'depends': ['base', 'mail'],  # Add dependencies if needed
+    'depends': ['base', 'mail', 'website'],  # Add dependencies if needed
     'data': [
         './security/ir.model.access.csv',
         './report/content_plan_templates.xml',
@@ -19,6 +19,7 @@
         'views/content_plan_date_occasions_views.xml',
         'views/content_plan_contents_type_views.xml',
         'views/content_plan_menus.xml',
+        'views/content_plan_portal_templates.xml',
         # Add more data files if needed
     ],
     'installable': True,
