@@ -61,3 +61,14 @@ class ContentPlanPortal(http.Controller):
 
         # Redirect to some page or return a response
         return http.request.redirect('/my/plans')  # Redirect to plans page after approval
+
+    @http.route(['/my/plans/request_modification/<int:plan_id>'], type='http', auth="user", website=True)
+    def request_modification(self, plan_id, **post):
+        # Fetch the plan record
+        plan = http.request.env['content.plan'].sudo().browse(plan_id)
+
+        # Trigger the modification_requested method
+        plan.modification_requested()
+
+        # Redirect to some page or return a response
+        return http.request.redirect('/my/plans')
