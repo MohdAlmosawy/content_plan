@@ -23,7 +23,7 @@ class ContentPlan(models.Model):
     
     status = fields.Selection(
         string="Status",
-        selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('approved','Approved'),('canceled','Canceled')],
+        selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'In Modification'),('approved','Approved'),('canceled','Canceled')],
         default = 'draft',
         tracking=True
     )
