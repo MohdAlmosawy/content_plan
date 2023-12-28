@@ -241,23 +241,24 @@ class ContentPlan(models.Model):
                         # add other necessary fields here
                     })
                 to_do_stage = self.env['project.task.type'].search([('name', '=', 'To Do')], limit=1)
-                for content in plan.contents_ids:
-                    # Search for the tag
-                    tag = self.env['project.tags'].search([('name', '=', content.content_plan_contents_type_id.name)], limit=1)
+                if plan.contents_ids and plan.contents_ids.content_plan_contents_type_id:
+                    for content in plan.contents_ids:
+                        # Search for the tag
+                        tag = self.env['project.tags'].search([('name', '=', content.content_plan_contents_type_id.name)], limit=1)
 
-                    # If the tag doesn't exist, create it
-                    if not tag:
-                        tag = self.env['project.tags'].create({'name': content.content_plan_contents_type_id.name})
+                        # If the tag doesn't exist, create it
+                        if not tag:
+                            tag = self.env['project.tags'].create({'name': content.content_plan_contents_type_id.name})
 
-                    self.env['project.task'].create({
-                        'name': content.content_title,
-                        'project_id': new_project.id,
-                        'stage_id': to_do_stage.id if to_do_stage else None,
-                        'user_ids': None,
-                        'tag_ids': [(4, tag.id)],
-                        'description': f"<h3>Publishing Date</h3>: {content.date}<br><h3>Content</h3>: {content.content}<br><h3>Caption</h3>: {content.caption}<br><h3>Notes</h3>: {content.notes}",
-                        # add other necessary fields here
-                    })
+                        self.env['project.task'].create({
+                            'name': content.content_title,
+                            'project_id': new_project.id,
+                            'stage_id': to_do_stage.id if to_do_stage else None,
+                            'user_ids': None,
+                            'tag_ids': [(4, tag.id)],
+                            'description': f"<h3>Publishing Date</h3>: {content.date}<br><h3>Content</h3>: {content.content}<br><h3>Caption</h3>: {content.caption}<br><h3>Notes</h3>: {content.notes}",
+                            # add other necessary fields here
+                        })
         return True
 
     def get_portal_url(self):

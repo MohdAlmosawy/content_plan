@@ -63,7 +63,7 @@
                 <t t-foreach="plans" t-as="plan">
                     <tr>
                         <td><a t-att-href="plan.get_portal_url()"><t t-out="plan.plan_title"/></a></td>
-                        <td><t t-out="plan.description"/></td>
+                        <td><a t-att-href="plan.get_portal_url()"><t t-out="plan.description"/></a></td>
                         <td><span t-field="plan.status"/></td>
                         <td><span t-field="plan.start_date"/></td>
                         <td><span t-field="plan.end_date"/></td>
