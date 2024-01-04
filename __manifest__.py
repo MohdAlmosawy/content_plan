@@ -3,12 +3,12 @@
 
 {
     'name': 'Content Plan',
-    'version': '1.0',
+    'version': '1.1',
     'summary': 'Custom module for managing social media plans',
     'description': 'Module to create and manage social media plans for clients.',
     'author': 'TecPill - Sayed Mohd Ebrahim',
     'license': 'OPL-1',
-    'depends': ['base', 'mail', 'website'],  # Add dependencies if needed
+    'depends': ['base', 'mail', 'website', 'project'],  # Add dependencies if needed
     'data': [
         './security/ir.model.access.csv',
         './report/content_plan_templates.xml',
