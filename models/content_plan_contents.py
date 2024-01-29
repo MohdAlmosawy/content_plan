@@ -18,7 +18,8 @@ class ContentPlanContents(models.Model):
     content_title = fields.Char(string='Title', tracking=True)
     content = fields.Text(string='Content', tracking=True)
     caption = fields.Text(string='Post Caption', tracking=True) 
-    list_id = fields.Many2one('content.plan.client.list', string='List', tracking=True)
+    partner_id = fields.Many2one('res.partner', string='Partner', related='content_plan_id.partner_id', readonly=True)
+    list_id = fields.Many2many('content.plan.client.list', string='List', domain="[('partner_id', '=', partner_id)]", tracking=True)
     item_ids = fields.Many2many('content.plan.client.item', string='Items', domain="[('list_id', '=', list_id)]", tracking=True)
     notes = fields.Text(string='Notes', tracking=True)
 

@@ -18,8 +18,7 @@
                 <field name="content_plan_contents_type_id"></field>
                 <field name="content"></field>
                 <field name="caption"></field>
-                <field name="list_id"/>
-                <field name="item_ids"></field>
+                <field name="item_ids" widget="many2many_tags"></field>
                 <field name="notes"></field>
                 <button name="open_content_plan_contents_form" string="Open" type="object" icon="fa-external-link"/>
             </tree>
@@ -51,10 +50,11 @@
                         <field name="caption"></field>
                      </group>
                      <group>
-                        <field name="list_id" widget="many2many_tags"></field>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="list_id" widget="many2many_tags" invisible="partner_id == False or not partner_id.list_ids"/>
                      </group>
                      <group>
-                        <field name="item_ids" widget="many2many_tags"/>
+                        <field name="item_ids" widget="many2many_tags" invisible="list_id == False"/>
                      </group>
                      <group>
                         <field name="notes"></field>
