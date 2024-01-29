@@ -1,8 +1,10 @@
+# models/content_plan_client_item.py
+
 from odoo import models, fields
 
 class ContentPlanClientItem(models.Model):
     _name = 'content.plan.client.item'
-    _description = 'Client Item'
+    _description = 'Content Plan Client Item'
 
-    client_id = fields.Many2one('res.partner', string='Client')
-    name = fields.Char(string='Item Name', required=True)
+    name = fields.Char(string='Name', required=True)
+    partner_id = fields.Many2one('res.partner', string='Client', required=True)

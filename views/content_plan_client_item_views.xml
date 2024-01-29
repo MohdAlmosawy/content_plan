@@ -12,7 +12,7 @@
             <form string="Client Item">
                 <sheet>
                     <group>
-                        <field name="client_id"/>
+                        <field name="partner_id"/>
                         <field name="name"/>
                     </group>
                 </sheet>
@@ -25,7 +25,7 @@
         <field name="model">content.plan.client.item</field>
         <field name="arch" type="xml">
             <tree string="Client Items">
-                <field name="client_id"/>
+                <field name="partner_id"/>
                 <field name="name"/>
             </tree>
         </field>
