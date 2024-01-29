@@ -46,7 +46,7 @@
                         <field name="content"></field>
                      </group>
                      <group>
-                        <field name="caption" widget="social_post_formatter"></field>
+                        <field name="caption"></field>
                      </group>
                      <group>
                         <field name="notes"></field>
