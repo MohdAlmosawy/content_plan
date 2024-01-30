@@ -54,7 +54,7 @@
                         <field name="list_id" widget="many2many_tags" invisible="partner_id == False or not partner_id.list_ids"/>
                      </group>
                      <group>
-                        <field name="item_ids" widget="many2many_tags" invisible="list_id == False"/>
+                        <field name="item_ids" widget="many2many_tags" invisible="not partner_id or not list_id"/>
                      </group>
                      <group>
                         <field name="notes"></field>
