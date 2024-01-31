@@ -15,7 +15,7 @@
                     <group>
                         <field name="name"/>
                         <field name="partner_id"/>
-                        <field name="item_ids" widget="one2many_list"/>
+                        <field name="item_ids" widget="one2many_list" context="{'tree_view_ref': 'content_plan_client_list_views.view_content_plan_client_item_tree'}"/>
                     </group>
                 </sheet>
             </form>
@@ -30,6 +30,18 @@
             <tree string="Client Lists">
                 <field name="name"/>
                 <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Tree view for content.plan.client.item -->
+    <record id="view_content_plan_client_item_tree" model="ir.ui.view">
+        <field name="name">content.plan.client.item.tree</field>
+        <field name="model">content.plan.client.item</field>
+        <field name="arch" type="xml">
+            <tree string="Client Item">
+                <field name="name"/>
+                <field name="used_in_contents" widget="many2many_tags"/>
             </tree>
         </field>
     </record>

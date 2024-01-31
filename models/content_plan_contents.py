@@ -23,6 +23,13 @@ class ContentPlanContents(models.Model):
     item_ids = fields.Many2many('content.plan.client.item', string='Items', domain="[('list_id', '=', list_id)]", tracking=True)
     notes = fields.Text(string='Notes', tracking=True)
 
+    display_name = fields.Char(compute='_compute_display_name')
+
+    @api.depends('content_title', 'date')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = '%s (%s)' % (record.content_title, record.date)
+
     @api.depends('date')
     def _compute_hijri_date(self):
         _logger.info("Computing Hijri date triggered")
