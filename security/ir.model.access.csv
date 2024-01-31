@@ -5,3 +5,9 @@
 "access_ir_model_content_plan_contents_type","ir_content_plan_contents_type","model_content_plan_contents_type","base.group_user",1,1,1,1
 "access_ir_model_content_plan_date_occasions","ir_content_plan_date_occasions","model_content_plan_date_occasions","base.group_user",1,1,1,1
 "access_ir_model_content_plan_notes","ir_content_plan_notes","model_content_plan_notes","base.group_user",1,1,1,1
+
+"access_ir_model_content_plan_portal","ir_content_plan","model_content_plan","base.group_portal",1,1,0,0
+"access_ir_model_content_plan_contents_portal","ir_content_plan_contents","model_content_plan_contents","base.group_portal",1,0,0,0
+"access_ir_model_content_plan_contents_type_portal","ir_content_plan_contents_type","model_content_plan_contents_type","base.group_portal",1,0,0,0
+"access_ir_model_content_plan_date_occasions_portal","ir_content_plan_date_occasions","model_content_plan_date_occasions","base.group_portal",1,0,0,0
+"access_ir_model_content_plan_notes_portal","ir_content_plan_notes","model_content_plan_notes","base.group_portal",1,0,0,0
