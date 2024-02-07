@@ -1,1 +1,1 @@
-from . import content_plan, content_plan_contents, content_plan_contents_type, content_plan_date_occasions, content_plan_notes
+from . import content_plan, content_plan_contents, content_plan_contents_type, content_plan_date_occasions, content_plan_notes, content_plan_client_list, content_plan_client_item, res_partner_inherit

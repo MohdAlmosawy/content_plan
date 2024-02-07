@@ -1,0 +1,65 @@
+<odoo>
+    <record id="content_plan_client_items_action" model="ir.actions.act_window">
+        <field name="name">Client Items</field>
+        <field name="res_model">content.plan.client.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_content_plan_client_list_form" model="ir.ui.view">
+        <field name="name">content.plan.client.list.form</field>
+        <field name="model">content.plan.client.list</field>
+        <field name="arch" type="xml">
+            <form string="Client List">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="item_ids" widget="one2many_list" context="{'tree_view_ref': 'content_plan_client_list_views.view_content_plan_client_item_tree'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List view -->
+    <record id="view_content_plan_client_list_tree" model="ir.ui.view">
+        <field name="name">content.plan.client.list.tree</field>
+        <field name="model">content.plan.client.list</field>
+        <field name="arch" type="xml">
+            <tree string="Client Lists">
+                <field name="name"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Tree view for content.plan.client.item -->
+    <record id="view_content_plan_client_item_tree" model="ir.ui.view">
+        <field name="name">content.plan.client.item.tree</field>
+        <field name="model">content.plan.client.item</field>
+        <field name="arch" type="xml">
+            <tree string="Client Item">
+                <field name="name"/>
+                <field name="used_in_contents" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for content.plan.client.item -->
+    <record id="view_content_plan_client_item_form" model="ir.ui.view">
+        <field name="name">content.plan.client.item.form</field>
+        <field name="model">content.plan.client.item</field>
+        <field name="arch" type="xml">
+            <form string="Client Item">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="list_id" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
