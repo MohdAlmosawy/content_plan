@@ -47,7 +47,7 @@
                         <field name="content"></field>
                      </group>
                      <group>
-                        <field name="caption"></field>
+                        <field name="caption" widget="text_emojis"></field>
                      </group>
                      <group>
                         <field name="partner_id" invisible="1"/>

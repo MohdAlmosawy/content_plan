@@ -23,7 +23,7 @@ class ContentPlan(models.Model):
     
     status = fields.Selection(
         string="Status",
-        selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'Modification'),('approved','Approved'),('canceled','Canceled')],
+        selection= [('draft', 'Draft'),('pending_approval', 'Pending Approval'),('modification', 'In Modification'),('approved','Approved'),('canceled','Canceled')],
         default = 'draft',
         tracking=True
     )
@@ -204,11 +204,10 @@ class ContentPlan(models.Model):
                 else:
                     record.plan_title = f"{record.end_date.year} : {record.start_date.month} - {record.end_date.month} | {partner_name} Content Plan"
             else:
-
                 record.plan_title = 'New Plan'
 
     def action_approved(self):
-        task_stages = ['Processing', 'Review', 'Adjustments', 'Scheduling', 'Closed']
+        task_stages = ['To Do', 'Received', 'Processing', 'Review', 'Adjustments', 'Completed', 'Closed']
         for plan in self:
             if plan.status == 'pending_approval':
                 plan.status = 'approved'
@@ -242,21 +241,28 @@ class ContentPlan(models.Model):
                         # add other necessary fields here
                     })
                 to_do_stage = self.env['project.task.type'].search([('name', '=', 'To Do')], limit=1)
-                for content in plan.contents_ids:
-                    # Search for the tag
-                    tag = self.env['project.tags'].search([('name', '=', content.content_plan_contents_type_id.name)], limit=1)
+                if plan.contents_ids and plan.contents_ids.content_plan_contents_type_id:
+                    for content in plan.contents_ids:
+                        # Search for the tag
+                        tag = self.env['project.tags'].search([('name', '=', content.content_plan_contents_type_id.name)], limit=1)
 
-                    # If the tag doesn't exist, create it
-                    if not tag:
-                        tag = self.env['project.tags'].create({'name': content.content_plan_contents_type_id.name})
+                        # If the tag doesn't exist, create it
+                        if not tag:
+                            tag = self.env['project.tags'].create({'name': content.content_plan_contents_type_id.name})
 
-                    self.env['project.task'].create({
-                        'name': content.content_title,
-                        'project_id': new_project.id,
-                        'stage_id': to_do_stage.id if to_do_stage else None,
-                        'user_ids': None,
-                        'tag_ids': [(4, tag.id)],
-                        'description': f"<h3>Publishing Date</h3>: {content.date}<br><h3>Content</h3>: {content.content}<br><h3>Caption</h3>: {content.caption}<br><h3>Notes</h3>: {content.notes}",
-                        # add other necessary fields here
-                    })
+                        self.env['project.task'].create({
+                            'name': content.content_title,
+                            'project_id': new_project.id,
+                            'stage_id': to_do_stage.id if to_do_stage else None,
+                            'user_ids': None,
+                            'tag_ids': [(4, tag.id)],
+                            'description': f"<h3>Publishing Date</h3>: {content.date}<br><h3>Content</h3>: {content.content}<br><h3>Caption</h3>: {content.caption}<br><h3>Notes</h3>: {content.notes}",
+                            # add other necessary fields here
+                        })
         return True
+
+    def get_portal_url(self):
+        # Define the logic to generate the URL for each plan
+        base_url = '/my/plans/'  # Replace this with your actual base URL for plan details
+        # Assuming plan_details() takes an argument 'plan_id'
+        return f"{base_url}{self.id}/details"  # Example: '/my/plans/123/details'
