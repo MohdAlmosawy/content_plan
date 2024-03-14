@@ -207,46 +207,61 @@ class ContentPlan(models.Model):
                 record.plan_title = 'New Plan'
 
     def action_approved(self):
-        task_stages = ['To Do', 'Received', 'Processing', 'Review', 'Adjustments', 'Completed', 'Closed']
+        task_stages = ['To Do', 'Processing', 'Review', 'Adjustments', 'Scheduling', 'Closed']
         for plan in self:
             if plan.status == 'pending_approval':
                 plan.status = 'approved'
                 plan.prevent_modification = True
+                # Create the new project
                 new_project = self.env['project.project'].create({
                     'name': plan.plan_title,
                     'user_id': None,
                     'partner_id': plan.partner_id.id,
                     'description': plan.description,
                     'date_start': plan.start_date,
-                    # add other necessary fields here
+                    # Add other necessary fields as required for your setup
                 })
-                # Add a message to the chatter
+
+                # Log to help diagnose the issue with stage reuse
+                _logger.info("Checking for existing task stages to link with the new project.")
+
+                # Create a mail.message for the new project creation
                 self.env['mail.message'].create({
-                    'body': "This project was created from approving the plan <a href='#' data-oe-model='content.plan' data-oe-id='%s'>%s</a>" % (plan.id, plan.plan_title),
+                    'body': f"This project was created from approving the plan <a href='#' data-oe-model='content.plan' data-oe-id='{plan.id}'>{plan.plan_title}</a>",
                     'record_name': new_project.name,
                     'model': 'project.project',
                     'res_id': new_project.id,
                     'message_type': 'notification',
                     'subtype_id': self.env.ref('mail.mt_note').id,
                 })
-                stage = self.env['project.project.stage'].search([('name', '=', 'Ice Box')], limit=1)
-                if stage:
-                    new_project.write({
-                        'stage_id': stage.id,
-                    })
+
                 for task_stage in task_stages:
-                    self.env['project.task.type'].create({
-                        'name': task_stage,
-                        'project_ids': [(4, new_project.id)],
-                        # add other necessary fields here
-                    })
-                to_do_stage = self.env['project.task.type'].search([('name', '=', 'To Do')], limit=1)
-                if plan.contents_ids and plan.contents_ids.content_plan_contents_type_id:
+                    # Search for an existing stage across all projects, excluding archived stages
+                    existing_stage = self.env['project.task.type'].search([('name', '=', task_stage), ('active', '=', True)], limit=1)
+                    if existing_stage:
+                        _logger.info(f"Existing '{task_stage}' stage found, reusing it for the project.")
+                    else:
+                        _logger.info(f"No existing '{task_stage}' stage found, creating a new one.")
+                        # If the stage doesn't exist in any project, create it
+                        existing_stage = self.env['project.task.type'].create({
+                            'name': task_stage,
+                            # Initially, do not link the stage to any specific project, allowing it to be used globally
+                        })
+                    # Ensure the stage is linked to the new project, regardless of whether it was newly created or pre-existing
+                    if new_project.id not in existing_stage.project_ids.ids:
+                        existing_stage.write({'project_ids': [(4, new_project.id)]})
+                        _logger.info(f"Linked '{task_stage}' stage to '{new_project.name}' project.")
+
+                # Handling the creation of tasks within the newly created project
+                to_do_stage = self.env['project.task.type'].search([('name', '=', 'To Do'), ('project_ids', 'in', new_project.id), ('active', '=', True)], limit=1)
+                if not to_do_stage:
+                    # Fallback: search for a global 'To Do' stage if not found specifically for the new project
+                    to_do_stage = self.env['project.task.type'].search([('name', '=', 'To Do'), ('project_ids', '=', False), ('active', '=', True)], limit=1)
+
+                if plan.contents_ids:
                     for content in plan.contents_ids:
                         # Search for the tag
                         tag = self.env['project.tags'].search([('name', '=', content.content_plan_contents_type_id.name)], limit=1)
-
-                        # If the tag doesn't exist, create it
                         if not tag:
                             tag = self.env['project.tags'].create({'name': content.content_plan_contents_type_id.name})
 
@@ -257,9 +272,15 @@ class ContentPlan(models.Model):
                             'user_ids': None,
                             'tag_ids': [(4, tag.id)],
                             'description': f"<h3>Publishing Date</h3>: {content.date}<br><h3>Content</h3>: {content.content}<br><h3>Caption</h3>: {content.caption}<br><h3>Notes</h3>: {content.notes}",
-                            # add other necessary fields here
+                            # Add other necessary fields as needed
                         })
+
         return True
+
+
+
+
+
 
     def get_portal_url(self):
         # Define the logic to generate the URL for each plan
